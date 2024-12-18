@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "120141208053",
+    "project_id": "gps-emergency-187ff",
+    "storage_bucket": "gps-emergency-187ff.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:120141208053:android:b405e9a5b5d8dc492aa8bc",
+        "android_client_info": {
+          "package_name": "com.example.gpsemergency"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAVdxBEA_cPdibb7910zmAESU0gH2rhg3w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

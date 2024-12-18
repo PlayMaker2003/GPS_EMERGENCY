@@ -114,20 +114,6 @@
         android:layout_marginTop="8dp"
         android:background="@drawable/rounded_register" />
 
-    <!-- Botón Google -->
-    <Button
-        android:id="@+id/googleSignUpButton"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="o Regístrate con Google"
-        android:textColor="#FFF"
-        android:backgroundTint="#EA4335"
-        app:layout_constraintTop_toBottomOf="@id/genderRegister"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintWidth_percent="0.8"
-        android:layout_marginTop="16dp" />
-
     <!-- Botón Registrar -->
     <Button
         android:id="@+id/registerButton"
@@ -136,7 +122,7 @@
         android:text="Registrarse"
         android:textColor="#FFF"
         android:backgroundTint="#4CAF50"
-        app:layout_constraintTop_toBottomOf="@id/googleSignUpButton"
+        app:layout_constraintTop_toBottomOf="@id/genderRegister"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintWidth_percent="0.8"

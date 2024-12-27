@@ -25,6 +25,7 @@ class MainActivity : AppCompatActivity() {
         val passwordLogin = findViewById<EditText>(R.id.passwordLogin)
         val loginButton = findViewById<Button>(R.id.loginButton)
         val registerRedirect = findViewById<TextView>(R.id.registerRedirect)
+        val forgotPassword = findViewById<TextView>(R.id.forgotPassword)
 
         // Evento del botón "Iniciar Sesión"
         loginButton.setOnClickListener {
@@ -42,6 +43,11 @@ class MainActivity : AppCompatActivity() {
         registerRedirect.setOnClickListener {
             startActivity(Intent(this, RegisterActivity::class.java))
         }
+
+        // Evento del botón "¿Olvidaste tu contraseña?"
+        forgotPassword.setOnClickListener {
+            startActivity(Intent(this, ForgotPasswordActivity::class.java))
+        }
     }
 
     // Función para iniciar sesión con Firebase Authentication
@@ -50,7 +56,6 @@ class MainActivity : AppCompatActivity() {
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     Toast.makeText(this, "Inicio de sesión exitoso", Toast.LENGTH_SHORT).show()
-                    // Mantén al usuario en esta misma pantalla o añade una lógica adicional
                 } else {
                     Toast.makeText(
                         this,

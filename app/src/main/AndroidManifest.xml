@@ -28,6 +28,11 @@
             android:name=".RegisterActivity"
             android:exported="true" />
 
+        <!-- ForgotPasswordActivity: Pantalla de Olvidé Mi Contraseña -->
+        <activity
+            android:name=".ForgotPasswordActivity"
+            android:exported="true" />
+
     </application>
 
 </manifest>

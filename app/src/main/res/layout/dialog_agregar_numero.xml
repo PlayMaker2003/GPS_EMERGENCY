@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- Campo para ingresar el nombre del contacto -->
+    <EditText
+        android:id="@+id/etNombre"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:hint="@string/dialog_hint_nombre"
+        android:importantForAccessibility="yes"
+        android:inputType="textPersonName"
+        android:minHeight="48dp"
+        tools:ignore="Autofill" />
+
+    <!-- Campo para ingresar el número de teléfono -->
+    <EditText
+        android:id="@+id/etNumero"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:hint="@string/dialog_hint_numero"
+        android:importantForAccessibility="yes"
+        android:inputType="phone"
+        android:minHeight="48dp" />
+
+</LinearLayout>

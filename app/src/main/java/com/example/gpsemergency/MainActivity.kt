@@ -56,6 +56,10 @@ class MainActivity : AppCompatActivity() {
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     Toast.makeText(this, "Inicio de sesión exitoso", Toast.LENGTH_SHORT).show()
+                    // Redirigir al Directorio
+                    val intent = Intent(this, DirectorioActivity::class.java)
+                    startActivity(intent)
+                    finish()
                 } else {
                     Toast.makeText(
                         this,

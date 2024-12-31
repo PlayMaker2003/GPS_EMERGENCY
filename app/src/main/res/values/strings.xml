@@ -16,4 +16,26 @@
 
     <!-- Redirección -->
     <string name="login_redirect">¿Ya tienes una cuenta? Inicia sesión</string>
+
+    <!-- Pantalla del Directorio -->
+    <string name="directorio_title">Directorio de Emergencia</string>
+    <string name="directorio_subtitle">Selecciona un número para llamar</string>
+    <string name="icono_contactos">Icono de contactos</string>
+    <string name="btn_mapa">Mapa</string>
+    <string name="btn_agregar_numero">Agregar Número</string>
+
+    <!-- Títulos y descripciones -->
+    <string name="dialog_title">Agregar Número</string>
+    <string name="dialog_hint_nombre">Nombre del contacto</string>
+    <string name="dialog_hint_numero">Número de teléfono</string>
+
+    <!-- Botones del diálogo -->
+    <string name="dialog_btn_agregar">Agregar</string>
+    <string name="dialog_btn_cancelar">Cancelar</string>
+
+    <!-- Mensajes de validación -->
+    <string name="dialog_msg_numero_agregado">Número agregado correctamente</string>
+    <string name="dialog_msg_campos_vacios">Por favor completa ambos campos</string>
+
+
 </resources>

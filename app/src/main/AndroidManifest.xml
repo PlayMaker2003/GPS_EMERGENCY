@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <!-- Permisos necesarios -->
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -33,6 +37,10 @@
             android:name=".ForgotPasswordActivity"
             android:exported="true" />
 
-    </application>
+        <!-- DirectorioActivity: Directorio de Números de Emergencia -->
+        <activity
+            android:name=".DirectorioActivity"
+            android:exported="true" />
 
+    </application>
 </manifest>

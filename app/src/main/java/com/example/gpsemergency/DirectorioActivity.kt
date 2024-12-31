@@ -19,11 +19,18 @@ class DirectorioActivity : AppCompatActivity() {
 
     private lateinit var adapter: ArrayAdapter<String>
     private val numerosEmergencia = mutableListOf(
-        "Policía - 911",
+        "Emergencias - 911",
         "Bomberos - 068",
         "Cruz Roja - 065",
         "Protección Civil - 072",
-        "Emergencia Médica - 080"
+        "Emergencia Médica - 080",
+        "Denuncia Anonima - 089",
+        "CAPUFE - 074",
+        "Policia Federal De Caminos -56842124",
+        "Protección Civil - 56832222",
+        "Locatel - 56581111",
+        "Fuga De Gas - 53532763",
+        "Fuga De Agua - 56543210"
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {

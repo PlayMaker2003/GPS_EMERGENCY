@@ -44,6 +44,8 @@ android {
 }
 
 dependencies {
+
+
     // Firebase BoM (gestiona versiones compatibles de las bibliotecas de Firebase)
     implementation(platform("com.google.firebase:firebase-bom:33.7.0"))
 
@@ -62,6 +64,9 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
+    implementation("androidx.cardview:cardview:1.0.0") // CardView
+
+
 
     // Testing
     testImplementation(libs.junit)

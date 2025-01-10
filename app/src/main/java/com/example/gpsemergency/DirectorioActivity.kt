@@ -1,47 +1,61 @@
 package com.example.gpsemergency
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
 import android.provider.ContactsContract
-import android.widget.ArrayAdapter // <- IMPORTACIÓN CORREGIDA
+import android.view.MenuItem
+import android.widget.Button
 import android.widget.ListView
+import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import android.widget.Button
 
 class DirectorioActivity : AppCompatActivity() {
 
-    private val directorio = mutableListOf(
+    private val contactos = mutableListOf(
         "Policía - 911",
         "Bomberos - 068",
         "Cruz Roja - 065",
         "Protección Civil - 072",
         "Emergencia Médica - 080"
     )
+
     private lateinit var adapter: DirectorioAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_directorio)
 
-        // Referencia al ListView
         val listView: ListView = findViewById(R.id.lvNumerosEmergencia)
+        val btnMapa: Button = findViewById(R.id.btnMapa)
+        val btnAgregarNumero: Button = findViewById(R.id.btnAgregarNumero)
+        val btnMenu: Button = findViewById(R.id.btnMenu)
 
         // Configurar el adaptador personalizado
         adapter = DirectorioAdapter(
             this,
-            directorio,
+            contactos,
+            onLlamar = { position -> iniciarLlamada(contactos[position].split(" - ")[1]) },
             onActualizar = { position -> mostrarDialogoActualizar(position) },
-            onEliminar = { position -> eliminarContacto(position) }
+            onEliminar = { position ->
+                contactos.removeAt(position)
+                adapter.notifyDataSetChanged()
+            }
         )
         listView.adapter = adapter
 
-        // Botón para agregar un contacto desde los contactos del dispositivo
-        val btnAgregarNumero: Button = findViewById(R.id.btnAgregarNumero)
+        // Acción al seleccionar un número del directorio
+        listView.setOnItemClickListener { _, _, position, _ ->
+            val numero = contactos[position].split(" - ")[1]
+            iniciarLlamada(numero)
+        }
+
         btnAgregarNumero.setOnClickListener {
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.READ_CONTACTS), 1)
@@ -49,70 +63,30 @@ class DirectorioActivity : AppCompatActivity() {
                 mostrarContactosDispositivo()
             }
         }
-    }
 
-    // Manejo del resultado de la solicitud de permisos
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == 1 && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            mostrarContactosDispositivo()
-        } else {
-            Toast.makeText(this, "Permiso para leer contactos denegado", Toast.LENGTH_SHORT).show()
+        btnMapa.setOnClickListener {
+            val intent = Intent(this, MapaActivity::class.java)
+            startActivity(intent)
+        }
+
+        // Configuración del menú desplegable
+        btnMenu.setOnClickListener {
+            mostrarMenu(it)
         }
     }
 
-    // Mostrar un cuadro de diálogo con la lista de contactos del dispositivo
-    private fun mostrarContactosDispositivo() {
-        val contactosTelefono = mutableListOf<String>()
-
-        val cursor = contentResolver.query(
-            ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
-            null,
-            null,
-            null,
-            ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME + " ASC"
-        )
-
-        cursor?.use {
-            while (cursor.moveToNext()) {
-                val nombre = cursor.getString(cursor.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME))
-                val numero = cursor.getString(cursor.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.Phone.NUMBER))
-                contactosTelefono.add("$nombre - $numero")
-            }
-        }
-
-        if (contactosTelefono.isEmpty()) {
-            Toast.makeText(this, "No hay contactos disponibles", Toast.LENGTH_SHORT).show()
-            return
-        }
-
-        val builder = AlertDialog.Builder(this)
-        builder.setTitle("Selecciona un contacto")
-        val contactosAdapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, contactosTelefono)
-
-        builder.setAdapter(contactosAdapter) { _, which ->
-            val contactoSeleccionado = contactosTelefono[which]
-            agregarContactoADirectorio(contactoSeleccionado)
-        }
-
-        builder.setNegativeButton("Cancelar", null)
-        builder.show()
-    }
-
-    // Agregar un contacto seleccionado al directorio
-    private fun agregarContactoADirectorio(contacto: String) {
-        if (!directorio.contains(contacto)) {
-            directorio.add(contacto)
-            adapter.notifyDataSetChanged()
-            Toast.makeText(this, "Contacto agregado al directorio", Toast.LENGTH_SHORT).show()
-        } else {
-            Toast.makeText(this, "El contacto ya está en el directorio", Toast.LENGTH_SHORT).show()
+    private fun iniciarLlamada(numero: String) {
+        val intent = Intent(Intent.ACTION_DIAL)
+        intent.data = Uri.parse("tel:$numero")
+        try {
+            startActivity(intent)
+        } catch (e: Exception) {
+            Toast.makeText(this, "No se pudo iniciar la llamada", Toast.LENGTH_SHORT).show()
         }
     }
 
-    // Mostrar un diálogo para actualizar un contacto
     private fun mostrarDialogoActualizar(position: Int) {
-        val contacto = directorio[position].split(" - ")
+        val contacto = contactos[position].split(" - ")
         val nombreActual = contacto[0]
         val numeroActual = contacto[1]
 
@@ -130,7 +104,7 @@ class DirectorioActivity : AppCompatActivity() {
                 val nuevoNombre = etNombre.text.toString().trim()
                 val nuevoNumero = etNumero.text.toString().trim()
                 if (nuevoNombre.isNotEmpty() && nuevoNumero.isNotEmpty()) {
-                    directorio[position] = "$nuevoNombre - $nuevoNumero"
+                    contactos[position] = "$nuevoNombre - $nuevoNumero"
                     adapter.notifyDataSetChanged()
                     Toast.makeText(this, "Contacto actualizado", Toast.LENGTH_SHORT).show()
                 } else {
@@ -141,10 +115,58 @@ class DirectorioActivity : AppCompatActivity() {
             .show()
     }
 
-    // Eliminar un contacto del directorio
-    private fun eliminarContacto(position: Int) {
-        val contactoEliminado = directorio.removeAt(position)
-        adapter.notifyDataSetChanged()
-        Toast.makeText(this, "Eliminado: $contactoEliminado", Toast.LENGTH_SHORT).show()
+    private fun mostrarContactosDispositivo() {
+        val contactosTelefono = mutableListOf<String>()
+        val cursor = contentResolver.query(
+            ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
+            null,
+            null,
+            null,
+            ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME + " ASC"
+        )
+
+        cursor?.use {
+            while (cursor.moveToNext()) {
+                val nombre = cursor.getString(cursor.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME))
+                val numero = cursor.getString(cursor.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.Phone.NUMBER))
+                contactosTelefono.add("$nombre - $numero")
+            }
+        }
+
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Selecciona un contacto")
+        val adapter = android.widget.ArrayAdapter(this, android.R.layout.simple_list_item_1, contactosTelefono)
+
+        builder.setAdapter(adapter) { _, which ->
+            val contactoSeleccionado = contactosTelefono[which]
+            if (!contactos.contains(contactoSeleccionado)) {
+                contactos.add(contactoSeleccionado)
+                this.adapter.notifyDataSetChanged()
+                Toast.makeText(this, "Contacto agregado", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(this, "El contacto ya existe", Toast.LENGTH_SHORT).show()
+            }
+        }
+        builder.setNegativeButton("Cancelar", null)
+        builder.show()
+    }
+
+    private fun mostrarMenu(view: android.view.View) {
+        val popupMenu = PopupMenu(this, view)
+        popupMenu.menuInflater.inflate(R.menu.menu_directorio, popupMenu.menu)
+        popupMenu.setOnMenuItemClickListener { item: MenuItem ->
+            when (item.itemId) {
+                R.id.menu_ayuda -> {
+                    Toast.makeText(this, "Ayuda seleccionada", Toast.LENGTH_SHORT).show()
+                    true
+                }
+                R.id.menu_ver_perfil -> {
+                    Toast.makeText(this, "Ver Perfil seleccionado", Toast.LENGTH_SHORT).show()
+                    true
+                }
+                else -> false
+            }
+        }
+        popupMenu.show()
     }
 }

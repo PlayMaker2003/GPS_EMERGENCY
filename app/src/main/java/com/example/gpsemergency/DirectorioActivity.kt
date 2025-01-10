@@ -6,8 +6,10 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.provider.ContactsContract
+import android.view.MenuItem
 import android.widget.Button
 import android.widget.ListView
+import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -31,33 +33,55 @@ class DirectorioActivity : AppCompatActivity() {
         setContentView(R.layout.activity_directorio)
 
         val listView: ListView = findViewById(R.id.lvNumerosEmergencia)
+        val btnMapa: Button = findViewById(R.id.btnMapa)
         val btnAgregarNumero: Button = findViewById(R.id.btnAgregarNumero)
+        val btnMenu: Button = findViewById(R.id.btnMenu)
 
-        // Configurar adaptador personalizado
+        // Configurar el adaptador personalizado
         adapter = DirectorioAdapter(
             this,
             contactos,
+            onLlamar = { position -> iniciarLlamada(contactos[position].split(" - ")[1]) },
             onActualizar = { position -> mostrarDialogoActualizar(position) },
             onEliminar = { position ->
                 contactos.removeAt(position)
                 adapter.notifyDataSetChanged()
-                Toast.makeText(this, "Contacto eliminado", Toast.LENGTH_SHORT).show()
-            },
-            onLlamar = { position ->
-                val contacto = contactos[position].split(" - ")
-                val numero = contacto[1].trim()
-                iniciarLlamada(numero)
             }
         )
         listView.adapter = adapter
 
-        // Botón para agregar un número desde los contactos del dispositivo
+        // Acción al seleccionar un número del directorio
+        listView.setOnItemClickListener { _, _, position, _ ->
+            val numero = contactos[position].split(" - ")[1]
+            iniciarLlamada(numero)
+        }
+
         btnAgregarNumero.setOnClickListener {
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.READ_CONTACTS), 1)
             } else {
                 mostrarContactosDispositivo()
             }
+        }
+
+        btnMapa.setOnClickListener {
+            val intent = Intent(this, MapaActivity::class.java)
+            startActivity(intent)
+        }
+
+        // Configuración del menú desplegable
+        btnMenu.setOnClickListener {
+            mostrarMenu(it)
+        }
+    }
+
+    private fun iniciarLlamada(numero: String) {
+        val intent = Intent(Intent.ACTION_DIAL)
+        intent.data = Uri.parse("tel:$numero")
+        try {
+            startActivity(intent)
+        } catch (e: Exception) {
+            Toast.makeText(this, "No se pudo iniciar la llamada", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -127,14 +151,22 @@ class DirectorioActivity : AppCompatActivity() {
         builder.show()
     }
 
-    private fun iniciarLlamada(numero: String) {
-        try {
-            val intent = Intent(Intent.ACTION_DIAL).apply {
-                data = Uri.parse("tel:$numero")
+    private fun mostrarMenu(view: android.view.View) {
+        val popupMenu = PopupMenu(this, view)
+        popupMenu.menuInflater.inflate(R.menu.menu_directorio, popupMenu.menu)
+        popupMenu.setOnMenuItemClickListener { item: MenuItem ->
+            when (item.itemId) {
+                R.id.menu_ayuda -> {
+                    Toast.makeText(this, "Ayuda seleccionada", Toast.LENGTH_SHORT).show()
+                    true
+                }
+                R.id.menu_ver_perfil -> {
+                    Toast.makeText(this, "Ver Perfil seleccionado", Toast.LENGTH_SHORT).show()
+                    true
+                }
+                else -> false
             }
-            startActivity(intent)
-        } catch (e: Exception) {
-            Toast.makeText(this, "No se pudo iniciar la llamada", Toast.LENGTH_SHORT).show()
         }
+        popupMenu.show()
     }
 }

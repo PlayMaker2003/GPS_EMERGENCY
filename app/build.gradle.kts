@@ -44,8 +44,6 @@ android {
 }
 
 dependencies {
-
-
     // Firebase BoM (gestiona versiones compatibles de las bibliotecas de Firebase)
     implementation(platform("com.google.firebase:firebase-bom:33.7.0"))
 
@@ -66,7 +64,11 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
     implementation("androidx.cardview:cardview:1.0.0") // CardView
 
+    // Google Play Services Location
+    implementation("com.google.android.gms:play-services-location:21.0.1")
 
+    // Google Maps SDK
+    implementation("com.google.android.gms:play-services-maps:18.1.0")
 
     // Testing
     testImplementation(libs.junit)

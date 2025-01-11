@@ -6,4 +6,7 @@
     <color name="button_background">#1ABC9C</color> <!-- Fondo del botón (verde) -->
     <color name="button_text_color">#FFFFFF</color> <!-- Texto del botón (blanco) -->
     <color name="primary_text_color">#2E4053</color> <!-- Texto principal oscuro -->
+    <color name="colorPrimary">#4CAF50</color>
+    <color name="colorAccent">#FF9800</color>
+    <color name="colorPrimaryDark">#009688</color>
 </resources>

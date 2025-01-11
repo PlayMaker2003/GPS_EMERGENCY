@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:background="#F5F5F5">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Foto de perfil -->
+        <ImageView
+            android:id="@+id/ivFotoPerfil"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_user_placeholder"
+            android:layout_marginBottom="16dp"
+            android:contentDescription="Foto de perfil"
+            android:background="@drawable/circle_background"
+            android:scaleType="centerCrop" />
+
+        <Button
+            android:id="@+id/btnCambiarFoto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cambiar Foto"
+            android:layout_gravity="center"
+            android:layout_marginBottom="24dp"
+            android:backgroundTint="#4CAF50"
+            android:textColor="#FFFFFF" />
+
+        <!-- Nombre Completo -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Nombre Completo"
+            android:textSize="16sp"
+            android:textColor="#333333"
+            android:layout_marginBottom="8dp" />
+
+        <EditText
+            android:id="@+id/etNombreCompleto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Escribe tu nombre completo"
+            android:layout_marginBottom="16dp"
+            android:backgroundTint="#4CAF50" />
+
+        <!-- Edad -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Edad"
+            android:textSize="16sp"
+            android:textColor="#333333"
+            android:layout_marginBottom="8dp" />
+
+        <EditText
+            android:id="@+id/etEdad"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:hint="Ingresa tu edad"
+            android:layout_marginBottom="16dp"
+            android:backgroundTint="#4CAF50" />
+
+        <!-- Tipo de sangre -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Tipo de Sangre"
+            android:textSize="16sp"
+            android:textColor="#333333"
+            android:layout_marginBottom="8dp" />
+
+        <Spinner
+            android:id="@+id/spTipoSangre"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Peso -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Peso (kg)"
+            android:textSize="16sp"
+            android:textColor="#333333"
+            android:layout_marginBottom="8dp" />
+
+        <EditText
+            android:id="@+id/etPeso"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            android:hint="Ingresa tu peso"
+            android:layout_marginBottom="16dp"
+            android:backgroundTint="#4CAF50" />
+
+        <!-- Altura -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Altura (cm)"
+            android:textSize="16sp"
+            android:textColor="#333333"
+            android:layout_marginBottom="8dp" />
+
+        <EditText
+            android:id="@+id/etAltura"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            android:hint="Ingresa tu altura"
+            android:layout_marginBottom="16dp"
+            android:backgroundTint="#4CAF50" />
+
+        <!-- Enfermedad -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="¿Sufres alguna enfermedad?"
+            android:textSize="16sp"
+            android:textColor="#333333"
+            android:layout_marginBottom="8dp" />
+
+        <Switch
+            android:id="@+id/switchEnfermedad"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="No / Sí"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Especificar enfermedad -->
+        <LinearLayout
+            android:id="@+id/layoutEspecificar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Especifica la enfermedad"
+                android:textSize="16sp"
+                android:textColor="#333333"
+                android:layout_marginBottom="8dp" />
+
+            <EditText
+                android:id="@+id/etEspecificar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Escribe aquí"
+                android:layout_marginBottom="16dp"
+                android:backgroundTint="#4CAF50" />
+        </LinearLayout>
+
+        <!-- Botón Guardar -->
+        <Button
+            android:id="@+id/btnGuardar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Guardar"
+            android:backgroundTint="#4CAF50"
+            android:textColor="#FFFFFF"
+            android:layout_marginTop="16dp" />
+
+        <!-- Botón Ver Perfil -->
+        <Button
+            android:id="@+id/btnVerPerfil"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Ver Perfil"
+            android:backgroundTint="#2196F3"
+            android:textColor="#FFFFFF"
+            android:layout_marginTop="16dp" />
+
+        <!-- Botón Ir a Directorio -->
+        <Button
+            android:id="@+id/btnIrDirectorio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Ir a Directorio"
+            android:backgroundTint="#FFC107"
+            android:textColor="#FFFFFF"
+            android:layout_marginTop="16dp" />
+
+    </LinearLayout>
+</ScrollView>

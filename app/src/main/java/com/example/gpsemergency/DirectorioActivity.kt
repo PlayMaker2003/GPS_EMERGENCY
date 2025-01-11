@@ -157,11 +157,18 @@ class DirectorioActivity : AppCompatActivity() {
         popupMenu.setOnMenuItemClickListener { item: MenuItem ->
             when (item.itemId) {
                 R.id.menu_ayuda -> {
-                    Toast.makeText(this, "Ayuda seleccionada", Toast.LENGTH_SHORT).show()
+                    val intent = Intent(this, AyudaActivity::class.java)
+                    startActivity(intent)
+                    true
+                }
+                R.id.menu_editar_perfil -> {
+                    val intent = Intent(this, PerfilActivity::class.java)
+                    startActivity(intent)
                     true
                 }
                 R.id.menu_ver_perfil -> {
-                    Toast.makeText(this, "Ver Perfil seleccionado", Toast.LENGTH_SHORT).show()
+                    val intent = Intent(this, VerPerfilActivity::class.java)
+                    startActivity(intent)
                     true
                 }
                 else -> false

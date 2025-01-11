@@ -38,4 +38,46 @@
     <string name="dialog_msg_campos_vacios">Por favor completa ambos campos</string>
 
 
+    <string-array name="tipos_sangre">
+        <item>O+</item>
+        <item>O-</item>
+        <item>A+</item>
+        <item>A-</item>
+        <item>B+</item>
+        <item>B-</item>
+        <item>AB+</item>
+        <item>AB-</item>
+    </string-array>
+
+
+    <!-- Perfil -->
+    <string name="perfil_title">Perfil del Usuario</string>
+    <string name="perfil_subtitle">Información personal</string>
+    <string name="cambiar_foto">Cambiar Foto</string>
+    <string name="tipo_sangre">Tipo de Sangre</string>
+    <string name="peso">Peso (kg)</string>
+    <string name="altura">Altura (cm)</string>
+    <string name="enfermedad">¿Sufres alguna enfermedad?</string>
+    <string name="especificar_enfermedad">Especifica la enfermedad</string>
+    <string name="guardar">Guardar</string>
+
+    <!-- Mensajes -->
+    <string name="perfil_guardado">Perfil guardado exitosamente</string>
+    <string name="error_guardar">Ocurrió un error al guardar</string>
+    <string name="error_campo_vacio">Por favor, completa todos los campos.</string>
+    <string name="error_permiso_contactos">No tienes permiso para acceder a los contactos.</string>
+    <string name="contacto_agregado">Contacto agregado con éxito.</string>
+    <string name="contacto_actualizado">Contacto actualizado con éxito.</string>
+    <string name="contacto_eliminado">Contacto eliminado con éxito.</string>
+    <string name="contacto_ya_existe">El contacto ya existe.</string>
+
+    <string name="foto_perfil">Foto de Perfil</string>
+    <string name="ver_perfil_title">Mi Perfil</string>
+    <string name="nombre_completo">Nombre Completo</string>
+    <string name="edad">Edad</string>
+    <string name="sufres_enfermedades">¿Sufres de enfermedades?</string>
+    <string name="btn_editar_perfil">Editar Perfil</string>
+
+
+
 </resources>

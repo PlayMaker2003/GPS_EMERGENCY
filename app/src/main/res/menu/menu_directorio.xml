@@ -5,6 +5,10 @@
         android:title="Ayuda"
         android:icon="@drawable/ic_help" />
     <item
+        android:id="@+id/menu_editar_perfil"
+        android:title="Editar Perfil"
+        android:icon="@drawable/ic_user_placeholder" />
+    <item
         android:id="@+id/menu_ver_perfil"
         android:title="Ver Perfil"
         android:icon="@drawable/ic_user_placeholder" />

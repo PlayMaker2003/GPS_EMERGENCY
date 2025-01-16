@@ -1,9 +1,9 @@
 package com.example.gpsemergency
+
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.provider.MediaStore
 import android.widget.*
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -18,6 +18,7 @@ class PerfilActivity : AppCompatActivity() {
     private lateinit var spTipoSangre: Spinner
     @SuppressLint("UseSwitchCompatOrMaterialCode")
     private lateinit var switchEnfermedad: Switch
+    private lateinit var layoutEspecificar: LinearLayout
     private lateinit var etEspecificar: EditText
     private lateinit var ivFotoPerfil: ImageView
     private lateinit var btnCambiarFoto: Button
@@ -39,6 +40,7 @@ class PerfilActivity : AppCompatActivity() {
         etAltura = findViewById(R.id.etAltura)
         spTipoSangre = findViewById(R.id.spTipoSangre)
         switchEnfermedad = findViewById(R.id.switchEnfermedad)
+        layoutEspecificar = findViewById(R.id.layoutEspecificar)
         etEspecificar = findViewById(R.id.etEspecificar)
         ivFotoPerfil = findViewById(R.id.ivFotoPerfil)
         btnCambiarFoto = findViewById(R.id.btnCambiarFoto)
@@ -60,7 +62,10 @@ class PerfilActivity : AppCompatActivity() {
 
         // Mostrar/ocultar campo especificar enfermedad
         switchEnfermedad.setOnCheckedChangeListener { _, isChecked ->
-            etEspecificar.visibility = if (isChecked) EditText.VISIBLE else EditText.GONE
+            layoutEspecificar.visibility = if (isChecked) LinearLayout.VISIBLE else LinearLayout.GONE
+            if (!isChecked) {
+                etEspecificar.text.clear()
+            }
         }
 
         // Acción de cambiar foto
@@ -88,10 +93,35 @@ class PerfilActivity : AppCompatActivity() {
 
     private fun configurarSpinnerTipoSangre() {
         val tiposSangre = listOf("A+", "A-", "B+", "B-", "O+", "O-", "AB+", "AB-", "No sé")
-        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, tiposSangre)
+        val adapter = object : ArrayAdapter<String>(
+            this,
+            android.R.layout.simple_spinner_item,
+            tiposSangre
+        ) {
+            override fun getView(position: Int, convertView: android.view.View?, parent: android.view.ViewGroup): android.view.View {
+                val view = super.getView(position, convertView, parent)
+                val textView = view.findViewById<TextView>(android.R.id.text1)
+                textView?.apply {
+                    setTextColor(android.graphics.Color.BLACK) // Texto negro
+                    setTypeface(null, android.graphics.Typeface.BOLD) // Negritas
+                }
+                return view
+            }
+
+            override fun getDropDownView(position: Int, convertView: android.view.View?, parent: android.view.ViewGroup): android.view.View {
+                val view = super.getDropDownView(position, convertView, parent)
+                val textView = view.findViewById<TextView>(android.R.id.text1)
+                textView?.apply {
+                    setTextColor(android.graphics.Color.BLACK) // Texto negro
+                    setTypeface(null, android.graphics.Typeface.BOLD) // Negritas
+                }
+                return view
+            }
+        }
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spTipoSangre.adapter = adapter
     }
+
 
     private fun abrirGaleria() {
         imagePickerLauncher.launch("image/*")
@@ -107,7 +137,7 @@ class PerfilActivity : AppCompatActivity() {
         val enfermedad = if (tieneEnfermedad) etEspecificar.text.toString() else "Ninguna"
 
         if (nombreCompleto.isEmpty() || edad.isEmpty() || peso.isEmpty() || altura.isEmpty()) {
-            Toast.makeText(this, "Por favor completa todos los campos", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Por favor completa todos los campos obligatorios", Toast.LENGTH_SHORT).show()
             return
         }
 

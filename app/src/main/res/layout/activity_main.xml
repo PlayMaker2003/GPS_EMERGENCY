@@ -1,5 +1,4 @@
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,119 +9,126 @@
         android:id="@+id/loginTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
         android:text="¡Bienvenido de nuevo!"
+        android:textColor="#4CAF50"
         android:textSize="24sp"
         android:textStyle="bold"
-        android:textColor="#4CAF50"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="40dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <!-- Descripción debajo del título -->
     <TextView
         android:id="@+id/loginSubtitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:text="Ingresa tus credenciales para acceder"
-        android:textSize="16sp"
         android:textColor="#757575"
-        app:layout_constraintTop_toBottomOf="@id/loginTitle"
-        app:layout_constraintStart_toStartOf="parent"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="8dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/loginTitle" />
 
     <!-- Icono decorativo -->
-    <ImageView
-        android:id="@+id/loginIcon"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:src="@drawable/ic_lock"
-        app:layout_constraintTop_toBottomOf="@id/loginSubtitle"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp"
-        android:contentDescription="Icono de seguridad" />
 
     <!-- Campos de texto -->
+
+    <ImageView
+        android:id="@+id/loginIcon"
+        android:layout_width="164dp"
+        android:layout_height="112dp"
+        android:layout_marginTop="24dp"
+        android:contentDescription="Icono de seguridad"
+        android:src="@drawable/ic_lock"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/loginSubtitle" />
+
     <EditText
         android:id="@+id/emailLogin"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/rounded_register"
         android:hint="Correo electrónico"
         android:inputType="textEmailAddress"
         android:padding="12dp"
-        android:background="@drawable/rounded_register"
-        app:layout_constraintTop_toBottomOf="@id/loginIcon"
-        app:layout_constraintStart_toStartOf="parent"
+        android:textColor="#000000"
+        android:textColorHint="#757575"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintWidth_percent="0.8"
-        android:layout_marginTop="20dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/loginIcon"
+        app:layout_constraintWidth_percent="0.8" />
 
     <EditText
         android:id="@+id/passwordLogin"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/rounded_register"
         android:hint="Contraseña"
         android:inputType="textPassword"
         android:padding="12dp"
-        android:background="@drawable/rounded_register"
-        app:layout_constraintTop_toBottomOf="@id/emailLogin"
-        app:layout_constraintStart_toStartOf="parent"
+        android:textColor="#000000"
+        android:textColorHint="#757575"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintWidth_percent="0.8"
-        android:layout_marginTop="12dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/emailLogin"
+        app:layout_constraintWidth_percent="0.8" />
 
     <!-- Checkbox: Recordarme -->
     <CheckBox
         android:id="@+id/rememberMe"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:text="Recordarme"
         android:textColor="#4CAF50"
-        app:layout_constraintTop_toBottomOf="@id/passwordLogin"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="8dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/passwordLogin" />
 
     <!-- Botón Ingresar -->
     <Button
         android:id="@+id/loginButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="#4CAF50"
         android:text="Iniciar Sesión"
         android:textColor="#FFF"
-        android:backgroundTint="#4CAF50"
-        app:layout_constraintTop_toBottomOf="@id/rememberMe"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintWidth_percent="0.8"
-        android:layout_marginTop="16dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rememberMe"
+        app:layout_constraintWidth_percent="0.8" />
 
     <!-- Olvidé mi contraseña -->
     <TextView
         android:id="@+id/forgotPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
         android:text="¿Olvidaste tu contraseña?"
         android:textColor="#4CAF50"
         android:textSize="14sp"
-        app:layout_constraintTop_toBottomOf="@id/loginButton"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="12dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/loginButton" />
 
     <!-- Redirección al registro -->
     <TextView
         android:id="@+id/registerRedirect"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:text="¿No tienes cuenta? Regístrate aquí"
         android:textColor="#4CAF50"
         android:textSize="14sp"
-        app:layout_constraintTop_toBottomOf="@id/forgotPassword"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="8dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/forgotPassword" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

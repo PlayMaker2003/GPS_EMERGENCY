@@ -23,6 +23,7 @@ class RegisterActivity : AppCompatActivity() {
         // Referencias a las vistas
         val emailRegister = findViewById<EditText>(R.id.emailRegister)
         val passwordRegister = findViewById<EditText>(R.id.passwordRegister)
+        val repeatPasswordRegister = findViewById<EditText>(R.id.repeatPasswordRegister)
         val registerButton = findViewById<Button>(R.id.registerButton)
         val loginRedirect = findViewById<TextView>(R.id.loginRedirect)
 
@@ -30,9 +31,14 @@ class RegisterActivity : AppCompatActivity() {
         registerButton.setOnClickListener {
             val email = emailRegister.text.toString().trim()
             val password = passwordRegister.text.toString().trim()
+            val repeatPassword = repeatPasswordRegister.text.toString().trim()
 
-            if (email.isNotEmpty() && password.isNotEmpty()) {
-                registerWithEmail(email, password)
+            if (email.isNotEmpty() && password.isNotEmpty() && repeatPassword.isNotEmpty()) {
+                if (password == repeatPassword) {
+                    registerWithEmail(email, password)
+                } else {
+                    Toast.makeText(this, "Las contraseñas no coinciden", Toast.LENGTH_SHORT).show()
+                }
             } else {
                 Toast.makeText(this, "Por favor completa todos los campos", Toast.LENGTH_SHORT).show()
             }

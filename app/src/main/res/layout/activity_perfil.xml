@@ -40,15 +40,19 @@
             android:text="Nombre Completo"
             android:textSize="16sp"
             android:textColor="#333333"
+            android:textStyle="bold"
             android:layout_marginBottom="8dp" />
 
         <EditText
             android:id="@+id/etNombreCompleto"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Escribe tu nombre completo"
             android:layout_marginBottom="16dp"
-            android:backgroundTint="#4CAF50" />
+            android:backgroundTint="#4CAF50"
+            android:textColor="#000000"
+            android:hint="Escribe tu nombre completo"
+            android:textColorHint="#757575"
+            android:minHeight="48dp" />
 
         <!-- Edad -->
         <TextView
@@ -57,16 +61,20 @@
             android:text="Edad"
             android:textSize="16sp"
             android:textColor="#333333"
+            android:textStyle="bold"
             android:layout_marginBottom="8dp" />
 
         <EditText
             android:id="@+id/etEdad"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="number"
-            android:hint="Ingresa tu edad"
             android:layout_marginBottom="16dp"
-            android:backgroundTint="#4CAF50" />
+            android:backgroundTint="#4CAF50"
+            android:textColor="#000000"
+            android:hint="Ingresa tu edad"
+            android:textColorHint="#757575"
+            android:inputType="number"
+            android:minHeight="48dp" />
 
         <!-- Tipo de sangre -->
         <TextView
@@ -75,13 +83,18 @@
             android:text="Tipo de Sangre"
             android:textSize="16sp"
             android:textColor="#333333"
+            android:textStyle="bold"
             android:layout_marginBottom="8dp" />
 
         <Spinner
             android:id="@+id/spTipoSangre"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp" />
+            android:layout_marginBottom="16dp"
+            android:minHeight="48dp"
+            android:popupBackground="#FFFFFF"
+            android:backgroundTint="#4CAF50"
+            android:spinnerMode="dropdown" />
 
         <!-- Peso -->
         <TextView
@@ -90,16 +103,20 @@
             android:text="Peso (kg)"
             android:textSize="16sp"
             android:textColor="#333333"
+            android:textStyle="bold"
             android:layout_marginBottom="8dp" />
 
         <EditText
             android:id="@+id/etPeso"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="numberDecimal"
-            android:hint="Ingresa tu peso"
             android:layout_marginBottom="16dp"
-            android:backgroundTint="#4CAF50" />
+            android:backgroundTint="#4CAF50"
+            android:textColor="#000000"
+            android:hint="Ingresa tu peso"
+            android:textColorHint="#757575"
+            android:inputType="numberDecimal"
+            android:minHeight="48dp" />
 
         <!-- Altura -->
         <TextView
@@ -108,16 +125,20 @@
             android:text="Altura (cm)"
             android:textSize="16sp"
             android:textColor="#333333"
+            android:textStyle="bold"
             android:layout_marginBottom="8dp" />
 
         <EditText
             android:id="@+id/etAltura"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="numberDecimal"
-            android:hint="Ingresa tu altura"
             android:layout_marginBottom="16dp"
-            android:backgroundTint="#4CAF50" />
+            android:backgroundTint="#4CAF50"
+            android:textColor="#000000"
+            android:hint="Ingresa tu altura"
+            android:textColorHint="#757575"
+            android:inputType="numberDecimal"
+            android:minHeight="48dp" />
 
         <!-- Enfermedad -->
         <TextView
@@ -126,14 +147,19 @@
             android:text="¿Sufres alguna enfermedad?"
             android:textSize="16sp"
             android:textColor="#333333"
+            android:textStyle="bold"
             android:layout_marginBottom="8dp" />
 
         <Switch
             android:id="@+id/switchEnfermedad"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:minHeight="48dp"
             android:text="No / Sí"
-            android:layout_marginBottom="16dp" />
+            android:textColor="#000000"
+            android:thumbTint="#4CAF50"
+            android:trackTint="#C8E6C9" />
 
         <!-- Especificar enfermedad -->
         <LinearLayout
@@ -149,6 +175,7 @@
                 android:text="Especifica la enfermedad"
                 android:textSize="16sp"
                 android:textColor="#333333"
+                android:textStyle="bold"
                 android:layout_marginBottom="8dp" />
 
             <EditText
@@ -156,6 +183,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Escribe aquí"
+                android:textColorHint="#757575"
+                android:textColor="#000000"
                 android:layout_marginBottom="16dp"
                 android:backgroundTint="#4CAF50" />
         </LinearLayout>

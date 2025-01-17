@@ -78,5 +78,16 @@
     <string name="sufres_enfermedades">¿Sufres de enfermedades?</string>
     <string name="btn_editar_perfil">Editar Perfil</string>
 
+    <string name="ayuda">Ayuda</string>
+    <string name="bienvenido_aqu_encontrar_s_las_instrucciones_para_usar_la_aplicaci_n_de_forma_r_pida_y_sencilla">¡Bienvenido! Aquí encontrarás las instrucciones para usar la aplicación de forma rápida y sencilla:</string>
+    <string name="agregar_contacto">Agregar Contacto</string>
+    <string name="_1_agrega_contactos_usando_el_bot_n_agregar_contacto">1. Agrega contactos usando el botón \'Agregar Contacto\'.</string>
+    <string name="ver_mapa">Ver Mapa</string>
+    <string name="_2_usa_ver_mapa_para_acceder_a_tu_ubicaci_n_en_tiempo_real">2. Usa \'Ver Mapa\' para acceder a tu ubicación en tiempo real.</string>
+    <string name="realizar_llamada">Realizar Llamada</string>
+    <string name="_3_realiza_llamadas_r_pidas_desde_la_lista_de_contactos">3. Realiza llamadas rápidas desde la lista de contactos.</string>
+    <string name="sab_as_que_puedes_personalizar_tu_perfil_desde_el_men_principal">¿Sabías que puedes personalizar tu perfil desde el menú principal?</string>
+    <string name="entendido">¡Entendido!</string>
+
 
 </resources>

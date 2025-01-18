@@ -12,9 +12,9 @@ import androidx.appcompat.app.AlertDialog
 class DirectorioAdapter(
     private val context: Context,
     private val contactos: MutableList<String>,
+    private val onLlamar: (Int) -> Unit,
     private val onActualizar: (Int) -> Unit,
-    private val onEliminar: (Int) -> Unit,
-    private val onLlamar: (Int) -> Unit
+    private val onEliminar: (Int) -> Unit
 ) : BaseAdapter() {
 
     override fun getCount(): Int = contactos.size
@@ -30,7 +30,9 @@ class DirectorioAdapter(
         val btnActualizar = view.findViewById<Button>(R.id.btnActualizar)
         val btnEliminar = view.findViewById<Button>(R.id.btnEliminar)
 
-        tvContacto.text = contactos[position]
+        val contacto = contactos[position]
+
+        tvContacto.text = contacto
 
         btnActualizar.setOnClickListener {
             onActualizar(position)

@@ -18,7 +18,7 @@ import androidx.core.content.ContextCompat
 
 class DirectorioActivity : AppCompatActivity() {
 
-    private val contactos = mutableListOf(
+    private val contactosPredeterminados = listOf(
         "Policía - 911",
         "Bomberos - 068",
         "Cruz Roja - 065",
@@ -26,6 +26,8 @@ class DirectorioActivity : AppCompatActivity() {
         "Emergencia Médica - 080"
     )
 
+    private val contactos = mutableListOf<String>()
+    private lateinit var databaseHelper: DatabaseHelper
     private lateinit var adapter: DirectorioAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,16 +39,19 @@ class DirectorioActivity : AppCompatActivity() {
         val btnAgregarNumero: Button = findViewById(R.id.btnAgregarNumero)
         val btnMenu: Button = findViewById(R.id.btnMenu)
 
+        // Inicializar la base de datos
+        databaseHelper = DatabaseHelper(this)
+
+        // Cargar contactos desde la base de datos o SharedPreferences
+        cargarContactos()
+
         // Configurar el adaptador personalizado
         adapter = DirectorioAdapter(
             this,
             contactos,
             onLlamar = { position -> iniciarLlamada(contactos[position].split(" - ")[1]) },
             onActualizar = { position -> mostrarDialogoActualizar(position) },
-            onEliminar = { position ->
-                contactos.removeAt(position)
-                adapter.notifyDataSetChanged()
-            }
+            onEliminar = { position -> eliminarContacto(position) }
         )
         listView.adapter = adapter
 
@@ -104,7 +109,8 @@ class DirectorioActivity : AppCompatActivity() {
                 val nuevoNombre = etNombre.text.toString().trim()
                 val nuevoNumero = etNumero.text.toString().trim()
                 if (nuevoNombre.isNotEmpty() && nuevoNumero.isNotEmpty()) {
-                    contactos[position] = "$nuevoNombre - $nuevoNumero"
+                    databaseHelper.actualizarContacto(nombreActual, nuevoNombre, nuevoNumero) // Actualizar en la base de datos
+                    cargarContactos() // Recargar los contactos
                     adapter.notifyDataSetChanged()
                     Toast.makeText(this, "Contacto actualizado", Toast.LENGTH_SHORT).show()
                 } else {
@@ -139,16 +145,46 @@ class DirectorioActivity : AppCompatActivity() {
 
         builder.setAdapter(adapter) { _, which ->
             val contactoSeleccionado = contactosTelefono[which]
-            if (!contactos.contains(contactoSeleccionado)) {
-                contactos.add(contactoSeleccionado)
-                this.adapter.notifyDataSetChanged()
-                Toast.makeText(this, "Contacto agregado", Toast.LENGTH_SHORT).show()
-            } else {
-                Toast.makeText(this, "El contacto ya existe", Toast.LENGTH_SHORT).show()
-            }
+            val (nombre, numero) = contactoSeleccionado.split(" - ")
+            databaseHelper.agregarContacto(nombre, numero) // Guardar en SQLite
+            cargarContactos() // Recargar los contactos
+            this.adapter.notifyDataSetChanged()
+            Toast.makeText(this, "Contacto agregado", Toast.LENGTH_SHORT).show()
         }
         builder.setNegativeButton("Cancelar", null)
         builder.show()
+    }
+
+    private fun eliminarContacto(position: Int) {
+        val contacto = contactos[position].split(" - ")
+        val nombre = contacto[0]
+        databaseHelper.eliminarContacto(nombre) // Eliminar de SQLite
+        cargarContactos() // Recargar los contactos
+        adapter.notifyDataSetChanged()
+        Toast.makeText(this, "Contacto eliminado", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun cargarContactos() {
+        contactos.clear()
+        contactos.addAll(databaseHelper.obtenerContactosSinID()) // Cargar solo nombre y número desde SQLite
+        if (contactos.isEmpty()) {
+            cargarContactosDeSharedPreferences() // Si SQLite está vacío, cargar predeterminados
+        }
+    }
+
+    private fun cargarContactosDeSharedPreferences() {
+        val sharedPreferences = getSharedPreferences("ContactosPrefs", MODE_PRIVATE)
+        if (sharedPreferences.all.isEmpty()) {
+            contactosPredeterminados.forEach { contacto ->
+                val (nombre, numero) = contacto.split(" - ")
+                databaseHelper.agregarContacto(nombre, numero) // Guardar predeterminados en SQLite
+            }
+            contactos.addAll(databaseHelper.obtenerContactosSinID())
+        } else {
+            sharedPreferences.all.entries.forEach { entry ->
+                contactos.add(entry.value as String)
+            }
+        }
     }
 
     private fun mostrarMenu(view: android.view.View) {

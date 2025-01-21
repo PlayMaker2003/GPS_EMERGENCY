@@ -3,6 +3,7 @@ package com.example.gpsemergency
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
@@ -56,27 +57,30 @@ class VerPerfilActivity : AppCompatActivity() {
         val sharedPreferences = getSharedPreferences("perfil_usuario", MODE_PRIVATE)
 
         // Obtener datos desde SharedPreferences
-        val nombreCompleto = sharedPreferences.getString("nombre_completo", "No disponible")
-        val edad = sharedPreferences.getString("edad", "No disponible")
-        val peso = sharedPreferences.getString("peso", "No disponible")
-        val altura = sharedPreferences.getString("altura", "No disponible")
-        val tipoSangre = sharedPreferences.getString("tipo_sangre", "No disponible")
-        val enfermedades = sharedPreferences.getString("enfermedad", "No especificado")
+        val nombreCompleto = sharedPreferences.getString("nombre_completo", "No disponible") ?: "No disponible"
+        val edad = sharedPreferences.getString("edad", "No disponible") ?: "No disponible"
+        val peso = sharedPreferences.getString("peso", "No disponible") ?: "No disponible"
+        val altura = sharedPreferences.getString("altura", "No disponible") ?: "No disponible"
+        val tipoSangre = sharedPreferences.getString("tipo_sangre", "No disponible") ?: "No disponible"
+        val enfermedades = sharedPreferences.getString("enfermedad", "").orEmpty().trim()
         val fotoUri = sharedPreferences.getString("foto_perfil", null)
 
         // Establecer datos en las vistas
-        tvNombreCompleto.text = "Nombre Completo: $nombreCompleto"
-        tvEdad.text = "Edad: $edad años"
-        tvPeso.text = "Peso: $peso kg"
-        tvAltura.text = "Altura: $altura cm"
-        tvTipoSangre.text = "Tipo de Sangre: $tipoSangre"
+        tvNombreCompleto.text = nombreCompleto // Solo el nombre de la persona
+        tvEdad.text = "$edad años"
+        tvPeso.text = "$peso kg"
+        tvAltura.text = "$altura cm"
+        tvTipoSangre.text = tipoSangre
 
-        // Verificar si hay enfermedades para mostrar
-        if (!enfermedades.isNullOrEmpty() && enfermedades != "No especificado") {
-            tvEnfermedades.text = "Enfermedades: $enfermedades"
+        // Limpia y asigna texto para enfermedades
+        tvEnfermedades.text = if (enfermedades.isNotEmpty()) {
+            enfermedades
         } else {
-            tvEnfermedades.text = "" // Dejar el campo vacío si no hay enfermedades
+            "No especificado"
         }
+
+        // Registrar en el log para depuración
+        Log.d("VerPerfilActivity", "Datos cargados: $nombreCompleto, $edad, $peso, $altura, $tipoSangre, $enfermedades")
 
         // Establecer imagen de perfil
         if (!fotoUri.isNullOrEmpty()) {

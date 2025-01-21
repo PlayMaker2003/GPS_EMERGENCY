@@ -1,4 +1,5 @@
 package com.example.gpsemergency
+
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -69,7 +70,13 @@ class VerPerfilActivity : AppCompatActivity() {
         tvPeso.text = "Peso: $peso kg"
         tvAltura.text = "Altura: $altura cm"
         tvTipoSangre.text = "Tipo de Sangre: $tipoSangre"
-        tvEnfermedades.text = "Enfermedades: $enfermedades"
+
+        // Verificar si hay enfermedades para mostrar
+        if (!enfermedades.isNullOrEmpty() && enfermedades != "No especificado") {
+            tvEnfermedades.text = "Enfermedades: $enfermedades"
+        } else {
+            tvEnfermedades.text = "" // Dejar el campo vacío si no hay enfermedades
+        }
 
         // Establecer imagen de perfil
         if (!fotoUri.isNullOrEmpty()) {
